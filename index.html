@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>macOS Zkratky</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0d0f;
+            --surface: #141417;
+            --surface2: #1c1c21;
+            --border: #2a2a32;
+            --accent: #5e9bff;
+            --accent2: #ff6b6b;
+            --accent3: #53d9a1;
+            --accent4: #f7c948;
+            --text: #e8e8f0;
+            --text-muted: #6b6b80;
+            --text-dim: #3d3d50;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Noise overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13,13,15,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--accent), #a78bfa);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+
+        .logo h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.05em;
+        }
+
+        .logo span {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 300;
+            display: block;
+            margin-top: 1px;
+        }
+
+        .search-wrap {
+            flex: 1;
+            min-width: 200px;
+            max-width: 420px;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        #search {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px 10px 38px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        #search:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(94,155,255,0.12);
+        }
+        #search::placeholder { color: var(--text-muted); }
+
+        .filter-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .tab {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .tab:hover { border-color: var(--accent); color: var(--accent); }
+        .tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 40px 80px;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .stat-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section[data-cat] { transition: opacity 0.2s; }
+        .section.hidden { display: none; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 8px;
+        }
+
+        .shortcut-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            transition: border-color 0.15s, transform 0.15s, background 0.15s;
+            cursor: default;
+        }
+
+        .shortcut-card:hover {
+            border-color: rgba(94,155,255,0.4);
+            background: var(--surface2);
+            transform: translateY(-1px);
+        }
+
+        .shortcut-card.hidden { display: none; }
+
+        .shortcut-label {
+            font-size: 13.5px;
+            color: var(--text);
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .keys {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            flex-shrink: 0;
+        }
+
+        .key {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 26px;
+            height: 26px;
+            padding: 0 6px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-bottom: 2px solid var(--border);
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .key-plus {
+            font-size: 10px;
+            color: var(--text-dim);
+            margin: 0 1px;
+        }
+
+        /* Color accents per section */
+        [data-cat="system"] .section-dot { background: var(--accent); }
+        [data-cat="system"] .shortcut-card:hover { border-color: rgba(94,155,255,0.4); }
+        [data-cat="system"] .key { border-color: rgba(94,155,255,0.3); color: var(--accent); }
+
+        [data-cat="finder"] .section-dot { background: var(--accent3); }
+        [data-cat="finder"] .shortcut-card:hover { border-color: rgba(83,217,161,0.4); }
+        [data-cat="finder"] .key { border-color: rgba(83,217,161,0.3); color: var(--accent3); }
+
+        [data-cat="text"] .section-dot { background: var(--accent4); }
+        [data-cat="text"] .shortcut-card:hover { border-color: rgba(247,201,72,0.4); }
+        [data-cat="text"] .key { border-color: rgba(247,201,72,0.3); color: var(--accent4); }
+
+        [data-cat="screenshots"] .section-dot { background: #c084fc; }
+        [data-cat="screenshots"] .shortcut-card:hover { border-color: rgba(192,132,252,0.4); }
+        [data-cat="screenshots"] .key { border-color: rgba(192,132,252,0.3); color: #c084fc; }
+
+        [data-cat="windows"] .section-dot { background: #fb923c; }
+        [data-cat="windows"] .shortcut-card:hover { border-color: rgba(251,146,60,0.4); }
+        [data-cat="windows"] .key { border-color: rgba(251,146,60,0.3); color: #fb923c; }
+
+        [data-cat="coding"] .section-dot { background: var(--accent2); }
+        [data-cat="coding"] .shortcut-card:hover { border-color: rgba(255,107,107,0.4); }
+        [data-cat="coding"] .key { border-color: rgba(255,107,107,0.3); color: var(--accent2); }
+
+        [data-cat="terminal"] .section-dot { background: #34d399; }
+        [data-cat="terminal"] .shortcut-card:hover { border-color: rgba(52,211,153,0.4); }
+        [data-cat="terminal"] .key { border-color: rgba(52,211,153,0.3); color: #34d399; }
+
+        [data-cat="vscode"] .section-dot { background: #60a5fa; }
+        [data-cat="vscode"] .shortcut-card:hover { border-color: rgba(96,165,250,0.4); }
+        [data-cat="vscode"] .key { border-color: rgba(96,165,250,0.3); color: #60a5fa; }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            display: none;
+        }
+
+        .no-results.show { display: block; }
+
+        @media (max-width: 600px) {
+            .header { padding: 16px 20px; }
+            .container { padding: 24px 20px 60px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">
+        <div class="logo-icon">⌘</div>
+        <div>
+            <h1>macOS Zkratky</h1>
+            <span>Kompletní přehled klávesových zkratek</span>
+        </div>
+    </div>
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search" placeholder="Hledej zkratku nebo akci..." autocomplete="off">
+    </div>
+    <div class="filter-tabs">
+        <button class="tab active" data-filter="all">Vše</button>
+        <button class="tab" data-filter="system">Systém</button>
+        <button class="tab" data-filter="finder">Finder</button>
+        <button class="tab" data-filter="text">Text</button>
+        <button class="tab" data-filter="screenshots">Screenshot</button>
+        <button class="tab" data-filter="windows">Okna</button>
+        <button class="tab" data-filter="coding">Kódování</button>
+        <button class="tab" data-filter="terminal">Terminal</button>
+        <button class="tab" data-filter="vscode">VS Code</button>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="stats-bar">
+        <div class="stat"><span class="stat-num" id="count">0</span><span class="stat-label">zkratek celkem</span></div>
+        <div class="stat"><span class="stat-num" id="visible-count">0</span><span class="stat-label">zobrazeno</span></div>
+    </div>
+
+    <!-- SYSTEM -->
+    <div class="section" data-cat="system">
+        <div class="section-header">
+            <div class="section-dot"></div>
+            <div class="section-title">Systémové zkratky</div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <div class="shortcut-card"><span class="shortcut-label">Spotlight vyhledávání</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">Space</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přepínání aplikací</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">Tab</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přepínání oken stejné app</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">`</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zavřít aplikaci</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">Q</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Skrýt aplikaci</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">H</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Skrýt ostatní aplikace</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌥</span><span class="key-plus">+</span><span class="key">H</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Minimalizovat okno</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">M</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Force Quit (vynutit zavření)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌥</span><span class="key-plus">+</span><span class="key">Esc</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vypnout / Restartovat</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">⏻</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zamknout obrazovku</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌃</span><span class="key-plus">+</span><span class="key">Q</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Mission Control</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">↑</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zobrazit plochu</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">F3</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Nastavení systému</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">,</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Nová záložka (tab)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">T</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zavřít záložku/okno</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">W</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vrátit zavřenou záložku</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">T</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Tisknout</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">P</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Uložit</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">S</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Uložit jako</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">S</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Otevřít soubor</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">O</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Nový soubor/okno</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">N</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Celá obrazovka</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌃</span><span class="key-plus">+</span><span class="key">F</span></div></div>
+        </div>
+    </div>
+
+    <!-- FINDER -->
+    <div class="section" data-cat="finder">
+        <div class="section-header">
+            <div class="section-dot"></div>
+            <div class="section-title">Finder</div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <div class="shortcut-card"><span class="shortcut-label">Otevřít Finder</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">F</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít do složky</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">G</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Nová složka</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">N</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejmenovat soubor</span><div class="keys"><span class="key">Return</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Smazat do koše</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌫</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vysypat koš</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">⌫</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zobrazit info o souboru</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">I</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Quick Look (náhled)</span><div class="keys"><span class="key">Space</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zobrazit skryté soubory</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">.</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Duplikovat soubor</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">D</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vytvořit alias</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">L</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zobrazení jako ikony</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">1</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zobrazení jako seznam</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">2</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zobrazení jako sloupce</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">3</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přidat do postranního panelu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌃</span><span class="key-plus">+</span><span class="key">T</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zpět v Finderu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">[</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vpřed v Finderu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">]</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Domovská složka</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">H</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vyhledat (Finder)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">F</span></div></div>
+        </div>
+    </div>
+
+    <!-- TEXT -->
+    <div class="section" data-cat="text">
+        <div class="section-header">
+            <div class="section-dot"></div>
+            <div class="section-title">Text a úpravy</div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <div class="shortcut-card"><span class="shortcut-label">Vyjmout</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">X</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Kopírovat</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">C</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vložit</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">V</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vložit bez formátování</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">⌥</span><span class="key-plus">+</span><span class="key">V</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zpět (Undo)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">Z</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Znovu (Redo)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">Z</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vybrat vše</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">A</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Najít</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">F</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Najít a nahradit</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌥</span><span class="key-plus">+</span><span class="key">F</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na začátek řádku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">A</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na konec řádku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">E</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Smazat od kurzoru do začátku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">U</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Smazat od kurzoru do konce</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">K</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Smazat slovo vlevo</span><div class="keys"><span class="key">⌥</span><span class="key-plus">+</span><span class="key">⌫</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přeskočit slovo vlevo</span><div class="keys"><span class="key">⌥</span><span class="key-plus">+</span><span class="key">←</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přeskočit slovo vpravo</span><div class="keys"><span class="key">⌥</span><span class="key-plus">+</span><span class="key">→</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Začátek dokumentu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">↑</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Konec dokumentu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">↓</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vybrat do začátku řádku</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">←</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vybrat do konce řádku</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">→</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Tučné písmo</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">B</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Kurzíva</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">I</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Podtržení</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">U</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Kontrola pravopisu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">;</span></div></div>
+        </div>
+    </div>
+
+    <!-- SCREENSHOTS -->
+    <div class="section" data-cat="screenshots">
+        <div class="section-header">
+            <div class="section-dot"></div>
+            <div class="section-title">Screenshoty a nahrávání</div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <div class="shortcut-card"><span class="shortcut-label">Screenshot celé obrazovky</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">3</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Screenshot výběru oblasti</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">4</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Screenshot okna</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">4</span><span class="key-plus">pak</span><span class="key">Space</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Screenshot nástroj (panel)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">5</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Uložit do schránky místo souboru</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">3/4</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Nahrát obrazovku (video)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">5</span></div></div>
+        </div>
+    </div>
+
+    <!-- WINDOWS -->
+    <div class="section" data-cat="windows">
+        <div class="section-header">
+            <div class="section-dot"></div>
+            <div class="section-title">Správa oken a ploch</div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <div class="shortcut-card"><span class="shortcut-label">Další plocha (Space) vpravo</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">→</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Předchozí plocha vlevo</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">←</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Mission Control</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">↑</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na plochu č. 1–9</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">1–9</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Exposé – okna aplikace</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">↓</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přiblížit obrazovku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">scroll ↑</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Oddálit obrazovku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">scroll ↓</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přepnout na konkrétní okno</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">`</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Launchpad</span><div class="keys"><span class="key">F4</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zobrazit notifikace / centrum</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌃</span><span class="key-plus">+</span><span class="key">N</span></div></div>
+        </div>
+    </div>
+
+    <!-- CODING GENERAL -->
+    <div class="section" data-cat="coding">
+        <div class="section-header">
+            <div class="section-dot"></div>
+            <div class="section-title">Programování – obecné</div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <div class="shortcut-card"><span class="shortcut-label">Přidat komentář (většina editorů)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">/</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Formátovat dokument</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">F</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Skočit na definici</span><div class="keys"><span class="key">F12</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zpět po skoku (Go back)</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">-</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Otevřít integrovaný terminál</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">`</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vícenásobný kurzor (klik)</span><div class="keys"><span class="key">⌥</span><span class="key-plus">+</span><span class="key">click</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vybrat výskyt slova pod kurzorem</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">D</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vybrat všechny výskyty</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">L</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přesunout řádek nahoru/dolů</span><div class="keys"><span class="key">⌥</span><span class="key-plus">+</span><span class="key">↑/↓</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Duplikovat řádek</span><div class="keys"><span class="key">⌥</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">↓</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na řádek</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">G</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Smazat celý řádek</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">K</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zmenšit/zvětšit odsazení</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">[</span><span class="key-plus">/</span><span class="key">]</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Sbalnout/rozbalit blok</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌥</span><span class="key-plus">+</span><span class="key">[</span><span class="key-plus">/</span><span class="key">]</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Najít a nahradit v projektu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">H</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Rychlé otevření souboru</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">P</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Command palette</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">P</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na symbol v souboru</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">O</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Rename (přejmenovat symbol)</span><div class="keys"><span class="key">F2</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Refactoring / Quick Fix</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">.</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">IntelliSense / autocomplete</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">Space</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Hover dokumentace</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">K</span><span class="key-plus">→</span><span class="key">I</span></div></div>
+        </div>
+    </div>
+
+    <!-- TERMINAL -->
+    <div class="section" data-cat="terminal">
+        <div class="section-header">
+            <div class="section-dot"></div>
+            <div class="section-title">Terminal</div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <div class="shortcut-card"><span class="shortcut-label">Nová záložka terminálu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">T</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Nové okno terminálu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">N</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přerušit proces (Ctrl+C)</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">C</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zastavit / pozastavit (Ctrl+Z)</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">Z</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vymazat obrazovku</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">K</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Smazat do začátku řádku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">U</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Smazat do konce řádku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">K</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na začátek řádku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">A</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na konec řádku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">E</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Předchozí příkaz</span><div class="keys"><span class="key">↑</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Hledat v historii příkazů</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">R</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přeskočit slovo zpět</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">W</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Dokončení příkazu (Tab)</span><div class="keys"><span class="key">Tab</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přepnout záložky terminálu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">[</span><span class="key-plus">/</span><span class="key">]</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Odeslat EOF (ukončit vstup)</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">D</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zvětšit font terminálu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">+</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zmenšit font terminálu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">-</span></div></div>
+        </div>
+    </div>
+
+    <!-- VS CODE -->
+    <div class="section" data-cat="vscode">
+        <div class="section-header">
+            <div class="section-dot"></div>
+            <div class="section-title">VS Code – specifické zkratky</div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <div class="shortcut-card"><span class="shortcut-label">Otevřít/zavřít sidebar</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">B</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přepnout panel (Terminal/Output)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">J</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Rozdělit editor (split)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">\</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přepnout skupiny editoru</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">1/2/3</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zavřít editor</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">W</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Obnovit zavřený editor</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">T</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na další záložku</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">Tab</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Explorer (průzkumník souborů)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">E</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Git (Source Control)</span><div class="keys"><span class="key">⌃</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">G</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Extensions (rozšíření)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">X</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Vyhledávání v projektu</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">F</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Breakpoint (debug)</span><div class="keys"><span class="key">F9</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Spustit debug</span><div class="keys"><span class="key">F5</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Step Over (debug)</span><div class="keys"><span class="key">F10</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Step Into (debug)</span><div class="keys"><span class="key">F11</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zastavit debug</span><div class="keys"><span class="key">⇧</span><span class="key-plus">+</span><span class="key">F5</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Zen Mode (rozptýlení pryč)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">K</span><span class="key-plus">→</span><span class="key">Z</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přidat kurzor nad/pod</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⌥</span><span class="key-plus">+</span><span class="key">↑/↓</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Oznámení o chybách (Problems)</span><div class="keys"><span class="key">⌘</span><span class="key-plus">+</span><span class="key">⇧</span><span class="key-plus">+</span><span class="key">M</span></div></div>
+            <div class="shortcut-card"><span class="shortcut-label">Přejít na další chybu</span><div class="keys"><span class="key">F8</span></div></div>
+        </div>
+    </div>
+
+    <div class="no-results" id="no-results">Žádné zkratky nenalezeny 🔍</div>
+
+</div>
+
+<script>
+    const cards = document.querySelectorAll('.shortcut-card');
+    const sections = document.querySelectorAll('.section[data-cat]');
+    const totalCount = document.getElementById('count');
+    const visibleCount = document.getElementById('visible-count');
+    const noResults = document.getElementById('no-results');
+    const searchInput = document.getElementById('search');
+    const tabs = document.querySelectorAll('.tab');
+
+    let activeFilter = 'all';
+    let activeSearch = '';
+
+    totalCount.textContent = cards.length;
+
+    function updateVisibility() {
+        let visible = 0;
+        const q = activeSearch.toLowerCase();
+
+        sections.forEach(section => {
+            const cat = section.dataset.cat;
+            const matchesCat = activeFilter === 'all' || activeFilter === cat;
+            let sectionHasVisible = false;
+
+            section.querySelectorAll('.shortcut-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const matchesSearch = !q || text.includes(q);
+                const show = matchesCat && matchesSearch;
+                card.classList.toggle('hidden', !show);
+                if (show) { sectionHasVisible = true; visible++; }
+            });
+
+            section.classList.toggle('hidden', !sectionHasVisible);
+        });
+
+        visibleCount.textContent = visible;
+        noResults.classList.toggle('show', visible === 0);
+    }
+
+    searchInput.addEventListener('input', e => {
+        activeSearch = e.target.value;
+        updateVisibility();
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            activeFilter = tab.dataset.filter;
+            updateVisibility();
+        });
+    });
+
+    updateVisibility();
+</script>
+</body>
+</html>
