@@ -111,6 +111,7 @@
         .t-cyan   .sec-dot{background:var(--cyan)}.t-cyan   .card:hover{border-color:rgba(34,211,238,.35)}.t-cyan   .key{color:var(--cyan);border-color:rgba(34,211,238,.25)}
         .t-red    .sec-dot{background:var(--red)}.t-red    .card:hover{border-color:rgba(248,113,113,.35)}.t-red    .key{color:var(--red);border-color:rgba(248,113,113,.25)}
         .t-teal   .sec-dot{background:var(--teal)}.t-teal   .card:hover{border-color:rgba(45,212,191,.35)}.t-teal   .key{color:var(--teal);border-color:rgba(45,212,191,.25)}
+        .t-davinci .sec-dot{background:#f97316}.t-davinci .card:hover{border-color:rgba(249,115,22,.35)}.t-davinci .key{color:#f97316;border-color:rgba(249,115,22,.25)}
 
         /* keyboard map */
         .kbd-intro { font-size:13px; color:var(--muted); margin-bottom:20px; line-height:1.6; }
@@ -173,6 +174,7 @@
         <button class="tab" data-filter="coding">Kódování</button>
         <button class="tab" data-filter="browser">Prohlížeč &amp; DevTools</button>
         <button class="tab" data-filter="chars">Znaky &amp; Klávesnice</button>
+        <button class="tab" data-filter="davinci">DaVinci Resolve</button>
     </div>
 </div>
 
@@ -518,6 +520,117 @@
             <span style="color:var(--yellow);font-weight:600;">Žlutě označené klávesy</span> = nejdůležitější pro programátory na <strong style="color:var(--text)">české klávesnici</strong> (závorky, zavináč, pipe, hash, tilda).<br>
             Mapa platí pro <strong style="color:var(--text)">českou klávesnici v macOS</strong> — pro US layout jsou závorky přímo na [ a ] klávesách.
         </p>
+    </div>
+
+    <!-- DAVINCI RESOLVE -->
+    <div class="section t-davinci" data-cat="davinci">
+        <div class="sec-head"><div class="sec-dot"></div><div class="sec-title">DaVinci Resolve — přehrávání &amp; navigace</div><div class="sec-line"></div></div>
+        <div class="grid">
+            <div class="card" data-tags="play pause prehravani spustit zastavit davinci video"><span class="card-label">Přehrát / Pozastavit</span><div class="keys"><span class="key">Space</span></div></div>
+            <div class="card" data-tags="play zpet backwards reverse prehravat dozadu davinci"><span class="card-label">Přehrát pozpátku</span><div class="keys"><span class="key">J</span></div></div>
+            <div class="card" data-tags="play dopredu forward play davinci rychlost"><span class="card-label">Přehrát dopředu</span><div class="keys"><span class="key">L</span></div></div>
+            <div class="card" data-tags="zastavit stop playback davinci K"><span class="card-label">Zastavit přehrávání</span><div class="keys"><span class="key">K</span></div></div>
+            <div class="card" data-tags="rychlost zvysit speed up faster jjj lll davinci"><span class="card-label">Zvýšit rychlost přehrávání</span><div class="keys"><span class="key">L</span><span class="sep">×</span><span class="key">opakovaně</span></div></div>
+            <div class="card" data-tags="snimek dopredu frame forward step next davinci"><span class="card-label">Krok o 1 snímek dopředu</span><div class="keys"><span class="key">.</span></div></div>
+            <div class="card" data-tags="snimek zpet frame backward step previous davinci"><span class="card-label">Krok o 1 snímek zpět</span><div class="keys"><span class="key">,</span></div></div>
+            <div class="card" data-tags="zacatek timeline home go to start first frame davinci"><span class="card-label">Přejít na začátek timeline</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">←</span></div></div>
+            <div class="card" data-tags="konec timeline end last frame go to davinci"><span class="card-label">Přejít na konec timeline</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">→</span></div></div>
+            <div class="card" data-tags="in point nastavit mark in oznacit zacatek cip clip davinci"><span class="card-label">Nastavit In Point</span><div class="keys"><span class="key">I</span></div></div>
+            <div class="card" data-tags="out point nastavit mark out oznacit konec clip davinci"><span class="card-label">Nastavit Out Point</span><div class="keys"><span class="key">O</span></div></div>
+            <div class="card" data-tags="in point smazat clear remove in davinci"><span class="card-label">Smazat In Point</span><div class="keys"><span class="key">⌥</span><span class="sep">+</span><span class="key">I</span></div></div>
+            <div class="card" data-tags="out point smazat clear remove out davinci"><span class="card-label">Smazat Out Point</span><div class="keys"><span class="key">⌥</span><span class="sep">+</span><span class="key">O</span></div></div>
+            <div class="card" data-tags="prejit in point go to in mark davinci"><span class="card-label">Přejít na In Point</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">I</span></div></div>
+            <div class="card" data-tags="prejit out point go to out mark davinci"><span class="card-label">Přejít na Out Point</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">O</span></div></div>
+            <div class="card" data-tags="dalsi strih next edit cut jump davinci"><span class="card-label">Přejít na další střih</span><div class="keys"><span class="key">↓</span></div></div>
+            <div class="card" data-tags="predchozi strih previous edit cut jump davinci"><span class="card-label">Přejít na předchozí střih</span><div class="keys"><span class="key">↑</span></div></div>
+            <div class="card" data-tags="full screen fullscreen viewer prehled nahled davinci"><span class="card-label">Celá obrazovka (viewer)</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">F</span></div></div>
+        </div>
+    </div>
+
+    <div class="section t-davinci" data-cat="davinci">
+        <div class="sec-head"><div class="sec-dot"></div><div class="sec-title">DaVinci Resolve — střih na timeline (Cut &amp; Edit)</div><div class="sec-line"></div></div>
+        <div class="grid">
+            <div class="card" data-tags="strih razor blade cut rozstrit clip davinci nuz"><span class="card-label">Nástroj Blade (nůž na střih)</span><div class="keys"><span class="key">B</span></div></div>
+            <div class="card" data-tags="select nastroj kurzor selection arrow tool davinci"><span class="card-label">Nástroj výběr (šipka)</span><div class="keys"><span class="key">V</span></div></div>
+            <div class="card" data-tags="trim nastroj orezat trimming tool davinci"><span class="card-label">Nástroj Trim</span><div class="keys"><span class="key">T</span></div></div>
+            <div class="card" data-tags="dynamic trim dynamic trimmer nastroj davinci"><span class="card-label">Nástroj Dynamic Trim</span><div class="keys"><span class="key">W</span></div></div>
+            <div class="card" data-tags="split strih rozdelit clip na miste playhead davinci blade"><span class="card-label">Rozdělit clip na pozici hlavy</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">B</span></div></div>
+            <div class="card" data-tags="smazat clip delete remove timeline davinci"><span class="card-label">Smazat clip (zanechat mezeru)</span><div class="keys"><span class="key">⌫</span></div></div>
+            <div class="card" data-tags="smazat clip ripple delete remove mezera zavrit gap davinci"><span class="card-label">Ripple Delete (smazat a zavřít mezeru)</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">⌫</span></div></div>
+            <div class="card" data-tags="insert vlozit clip insert edit timeline davinci"><span class="card-label">Insert — vložit clip do timeline</span><div class="keys"><span class="key">F9</span></div></div>
+            <div class="card" data-tags="overwrite prepsat clip overwrite edit timeline davinci"><span class="card-label">Overwrite — přepsat clip do timeline</span><div class="keys"><span class="key">F10</span></div></div>
+            <div class="card" data-tags="replace nahradit clip replace edit timeline davinci"><span class="card-label">Replace — nahradit clip</span><div class="keys"><span class="key">F11</span></div></div>
+            <div class="card" data-tags="fit to fill fit fill clip timing davinci"><span class="card-label">Fit to Fill</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">F11</span></div></div>
+            <div class="card" data-tags="undo zpet zrusit akci davinci"><span class="card-label">Zpět (Undo)</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">Z</span></div></div>
+            <div class="card" data-tags="redo znovu opakovat akci davinci"><span class="card-label">Znovu (Redo)</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⇧</span><span class="sep">+</span><span class="key">Z</span></div></div>
+            <div class="card" data-tags="vybrat vse select all clips davinci"><span class="card-label">Vybrat vše</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">A</span></div></div>
+            <div class="card" data-tags="kopirovat copy clip davinci"><span class="card-label">Kopírovat clip</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">C</span></div></div>
+            <div class="card" data-tags="vlozit paste clip davinci"><span class="card-label">Vložit clip</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">V</span></div></div>
+            <div class="card" data-tags="link unlink video audio odlinkovat linkovat clip track davinci"><span class="card-label">Propojit / odpojit video a audio</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⌥</span><span class="sep">+</span><span class="key">L</span></div></div>
+            <div class="card" data-tags="enable disable clip vypnout zapnout deaktivovat davinci"><span class="card-label">Vypnout / zapnout clip</span><div class="keys"><span class="key">D</span></div></div>
+            <div class="card" data-tags="lock track zamknout stopu track lock davinci"><span class="card-label">Zamknout stopu</span><div class="keys"><span class="key">⌥</span><span class="sep">+</span><span class="key">L</span></div></div>
+            <div class="card" data-tags="zoom in timeline priblizit timeline view davinci"><span class="card-label">Přiblížit timeline</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">+</span></div></div>
+            <div class="card" data-tags="zoom out timeline oddalit timeline view davinci"><span class="card-label">Oddálit timeline</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">-</span></div></div>
+            <div class="card" data-tags="zoom fit timeline vejit na obrazovku fit all davinci"><span class="card-label">Vejít celou timeline na obrazovku</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">Z</span></div></div>
+            <div class="card" data-tags="flag oznacit clip barva flag color davinci"><span class="card-label">Přidat příznak (Flag)</span><div class="keys"><span class="key">G</span></div></div>
+            <div class="card" data-tags="marker pridat znacku marker add davinci"><span class="card-label">Přidat Marker (značku)</span><div class="keys"><span class="key">M</span></div></div>
+            <div class="card" data-tags="dalsi marker next marker jump davinci"><span class="card-label">Přejít na další Marker</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">↓</span></div></div>
+            <div class="card" data-tags="predchozi marker previous marker jump davinci"><span class="card-label">Přejít na předchozí Marker</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">↑</span></div></div>
+        </div>
+    </div>
+
+    <div class="section t-davinci" data-cat="davinci">
+        <div class="sec-head"><div class="sec-dot"></div><div class="sec-title">DaVinci Resolve — Color grading &amp; Fusion</div><div class="sec-line"></div></div>
+        <div class="grid">
+            <div class="card" data-tags="color page color grading stranky prepnout davinci"><span class="card-label">Přejít na stránku Color</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">6</span></div></div>
+            <div class="card" data-tags="edit page edit stranky prepnout davinci"><span class="card-label">Přejít na stránku Edit</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">4</span></div></div>
+            <div class="card" data-tags="cut page cut stranky prepnout davinci"><span class="card-label">Přejít na stránku Cut</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">2</span></div></div>
+            <div class="card" data-tags="media page media stranky prepnout davinci"><span class="card-label">Přejít na stránku Media</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">1</span></div></div>
+            <div class="card" data-tags="fusion page fusion stranky prepnout davinci"><span class="card-label">Přejít na stránku Fusion</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">5</span></div></div>
+            <div class="card" data-tags="deliver page export render stranky prepnout davinci"><span class="card-label">Přejít na stránku Deliver</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">7</span></div></div>
+            <div class="card" data-tags="copy grade zkopirovat korekci barvy still davinci color"><span class="card-label">Zkopírovat grade (Color)</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">C</span></div></div>
+            <div class="card" data-tags="paste grade vlozit korekci barvy davinci color"><span class="card-label">Vložit grade (Color)</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">V</span></div></div>
+            <div class="card" data-tags="grab still ulozit still screenshot frame color gallery davinci"><span class="card-label">Uložit Still (snímek pro galerii)</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⇧</span><span class="sep">+</span><span class="key">G</span></div></div>
+            <div class="card" data-tags="reset grade reset korekci barvy vynulovat davinci color"><span class="card-label">Resetovat grade celý node</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⌫</span></div></div>
+            <div class="card" data-tags="highlight zobrazit masku node color davinci highlight"><span class="card-label">Highlight — zobrazit masku nodu</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">H</span></div></div>
+            <div class="card" data-tags="bypass node vypnout node skip color davinci"><span class="card-label">Bypass nodu (dočasně vypnout)</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">D</span></div></div>
+            <div class="card" data-tags="wipe porovnat before after compare original davinci color"><span class="card-label">Wipe — porovnat before/after</span><div class="keys"><span class="key">W</span></div></div>
+            <div class="card" data-tags="loop smycka prehravat opakovat looping davinci playback"><span class="card-label">Loop — přehrávat smyčku</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">/</span></div></div>
+            <div class="card" data-tags="qualifer picker vybrat barvu key color selection davinci"><span class="card-label">Qualifier Picker — výběr barvy</span><div class="keys"><span class="key">Q</span></div></div>
+            <div class="card" data-tags="curves krivky panel zobrazit color davinci"><span class="card-label">Zobrazit Curves panel</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">C</span></div></div>
+            <div class="card" data-tags="scopes waveform parade histogram davinci color monitoring"><span class="card-label">Zobrazit / skrýt Scopes</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">W</span></div></div>
+            <div class="card" data-tags="fusion node pridat add node novy davinci fusion"><span class="card-label">Přidat nový node (Fusion)</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">Space</span></div></div>
+            <div class="card" data-tags="fusion connect propojit node wire davinci fusion"><span class="card-label">Propojit nody (Fusion)</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">klik na node</span></div></div>
+        </div>
+    </div>
+
+    <div class="section t-davinci" data-cat="davinci">
+        <div class="sec-head"><div class="sec-dot"></div><div class="sec-title">DaVinci Resolve — Audio &amp; Fairlight</div><div class="sec-line"></div></div>
+        <div class="grid">
+            <div class="card" data-tags="fairlight page audio stranky prepnout davinci"><span class="card-label">Přejít na stránku Fairlight (Audio)</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">8</span></div></div>
+            <div class="card" data-tags="mute stopa ztisit mute track audio davinci"><span class="card-label">Ztlumit stopu (Mute)</span><div class="keys"><span class="key">⌥</span><span class="sep">+</span><span class="key">M</span></div></div>
+            <div class="card" data-tags="solo stopa sola track audio davinci izolovat"><span class="card-label">Sólo stopa (Solo Track)</span><div class="keys"><span class="key">⌥</span><span class="sep">+</span><span class="key">S</span></div></div>
+            <div class="card" data-tags="audio keyframe klic animace volume davinci pridat"><span class="card-label">Přidat Audio Keyframe</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⌥</span><span class="sep">+</span><span class="key">K</span></div></div>
+            <div class="card" data-tags="normalize audio normalizovat hlasitost loudness davinci"><span class="card-label">Normalizovat hlasitost</span><div class="keys"><span class="key">⌥</span><span class="sep">+</span><span class="key">⇧</span><span class="sep">+</span><span class="key">N</span></div></div>
+            <div class="card" data-tags="zoom waveform vlna audio priblizit zvuk davinci"><span class="card-label">Přiblížit waveform (vertikálně)</span><div class="keys"><span class="key">⌥</span><span class="sep">+</span><span class="key">↑</span></div></div>
+            <div class="card" data-tags="zoom waveform vlna audio oddalit zvuk davinci"><span class="card-label">Oddálit waveform (vertikálně)</span><div class="keys"><span class="key">⌥</span><span class="sep">+</span><span class="key">↓</span></div></div>
+        </div>
+    </div>
+
+    <div class="section t-davinci" data-cat="davinci">
+        <div class="sec-head"><div class="sec-dot"></div><div class="sec-title">DaVinci Resolve — Export &amp; ostatní</div><div class="sec-line"></div></div>
+        <div class="grid">
+            <div class="card" data-tags="render export add to queue pridat do fronty render davinci"><span class="card-label">Přidat do fronty renderování</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⏎</span></div></div>
+            <div class="card" data-tags="render start spustit renderovani export davinci"><span class="card-label">Spustit renderování</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⇧</span><span class="sep">+</span><span class="key">⏎</span></div></div>
+            <div class="card" data-tags="project settings nastaveni projektu fps rozliseni davinci"><span class="card-label">Nastavení projektu</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">9</span></div></div>
+            <div class="card" data-tags="new timeline nova timeline vytvorit sequence davinci"><span class="card-label">Nová timeline</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">N</span></div></div>
+            <div class="card" data-tags="import media soubor importovat pridat bin davinci"><span class="card-label">Importovat médium</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">I</span></div></div>
+            <div class="card" data-tags="save project ulozit projekt davinci uložit"><span class="card-label">Uložit projekt</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">S</span></div></div>
+            <div class="card" data-tags="keyboard shortcuts nastavit vlastni zkratky customize davinci"><span class="card-label">Vlastní klávesové zkratky</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⌥</span><span class="sep">+</span><span class="key">K</span></div></div>
+            <div class="card" data-tags="inspector panel vlastnosti clip zobrazit davinci"><span class="card-label">Zobrazit / skrýt Inspector</span><div class="keys"><span class="key">⌘</span><span class="sep">+</span><span class="key">⇧</span><span class="sep">+</span><span class="key">I</span></div></div>
+            <div class="card" data-tags="effects library panel efekty prehled zobrazit davinci"><span class="card-label">Zobrazit Effects Library</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">⌘</span><span class="sep">+</span><span class="key">5</span></div></div>
+            <div class="card" data-tags="media pool panel bin zobrazit davinci media"><span class="card-label">Zobrazit / skrýt Media Pool</span><div class="keys"><span class="key">⇧</span><span class="sep">+</span><span class="key">⌘</span><span class="sep">+</span><span class="key">1</span></div></div>
+        </div>
     </div>
 
     <div class="no-results" id="no-results">
